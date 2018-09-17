@@ -2,8 +2,8 @@
 PRACTICE Exam 1, problem 3.
 
 Authors: David Mutchler, Vibha Alangar, Valerie Galluzzi, Mark Hays,
-         Amanda Stouder, their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         Amanda Stouder, their colleagues and Alexander Harris.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -137,7 +137,7 @@ def problem3a(window, point, n):
         :type n:      int
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -145,6 +145,20 @@ def problem3a(window, point, n):
     #    DIFFICULTY:      7 or 8
     #    TIME ESTIMATE:   20 to 35 minutes.
     # ------------------------------------------------------------------
+
+    total = 0
+    for k in range(n):
+        line = rg.Line(rg.Point(point.x+(20*k),point.y+(10*k)), rg.Point(point.x+(20*k),point.y+(10*k)+50))
+        line.thickness = 1+(k*2)
+
+        if line.thickness >= 13:
+            line.thickness = 13
+
+        total = total + line.thickness
+        line.attach_to(window)
+
+    window.render()
+    return total
 
 
 def run_test_problem3b():
@@ -201,7 +215,7 @@ def problem3b(m, point1):
         :type point1: rg.Point
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     ####################################################################
@@ -214,6 +228,14 @@ def problem3b(m, point1):
     #    DIFFICULTY:      8 or 9
     #    TIME ESTIMATE:   20 to 30 minutes.
     # ------------------------------------------------------------------
+
+    total = 0
+    windowb = rg.RoseWindow(400, 650)
+    for k in range(m):
+        set = problem3a(windowb,rg.Point(point1.x,point1.y+60*k),3+2*k)
+        total = total + set
+    windowb.close_on_mouse_click()
+    return total
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
