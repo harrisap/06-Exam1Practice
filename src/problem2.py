@@ -2,8 +2,8 @@
 PRACTICE Exam 1, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Valerie Galluzzi, Mark Hays,
-         Amanda Stouder, their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         Amanda Stouder, their colleagues and Alexander Harris.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -102,7 +102,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -110,6 +110,40 @@ def problem2a(circle, rectangle, window):
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:   10 to 15 minutes.
     # ------------------------------------------------------------------
+    x1 = rectangle.corner_1.x
+    y1 = rectangle.corner_1.y
+    x2 = rectangle.corner_2.x
+    y2 = rectangle.corner_2.y
+    length = rectangle.corner_2.x - rectangle.corner_1.x
+    if rectangle.corner_2.y < rectangle.corner_1.y:
+        height = rectangle.corner_1.y - rectangle.corner_2.y
+    else:
+        height = rectangle.corner_2.y - rectangle.corner_1.y
+
+
+    if length<0:
+        length = -length
+    if height<0:
+        height = -height
+
+    rectangle.attach_to(window)
+    circle.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+    line = rg.Line(rg.Point(rectangle.corner_1.x,rectangle.corner_1.y),rg.Point(rectangle.corner_2.x,rectangle.corner_2.y))
+    if (rectangle.corner_2.y > rectangle.corner_1.y) & (rectangle.corner_2.x > rectangle.corner_1.x):
+        line = rg.Line(rg.Point(x1+length,y1),rg.Point(x1,y1+height))
+    elif (rectangle.corner_2.y < rectangle.corner_1.y) & (rectangle.corner_2.x > rectangle.corner_1.x):
+        line = rg.Line(rg.Point(x2,y2),rg.Point(x2-length,y2+height))
+    elif (rectangle.corner_2.y > rectangle.corner_1.y) & (rectangle.corner_2.x < rectangle.corner_1.x):
+        line = rg.Line(rg.Point(x1, y1), rg.Point(x1-length, y1 + height))
+    line.arrow = 'last'
+    line.attach_to(window)
+    window.render()
+    window.continue_on_mouse_click()
+    circle.fill_color = rectangle.outline_color
+    window.render()
+    window.continue_on_mouse_click()
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
@@ -181,6 +215,26 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
+
+    rect.attach_to(win)
+
+    for k in range(n):
+        x = -delta*k + rect.get_upper_left_corner().x
+        y = -delta*k + rect.get_upper_right_corner().y
+
+        x1 = delta*k + rect.get_lower_right_corner().x
+        y1 = delta*k + rect.get_lower_right_corner().y
+
+        rectangle = rg.Rectangle(rg.Point(x,y),rg.Point(x1,y1))
+
+        rectangle.attach_to(win)
+    win.render()
+
+
+
+
+
+
 
 
 # ----------------------------------------------------------------------
